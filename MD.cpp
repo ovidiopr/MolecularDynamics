@@ -273,9 +273,6 @@ int main()
   computeAccelerations();
 
 
-  // Print number of particles to the trajectory file
-  fprintf(tfp,"%i\n",N);
-
   //  We want to calculate the average Temperature and Pressure for the simulation
   //  The variables need to be set to zero initially
   Pavg = 0;
@@ -286,6 +283,10 @@ int main()
   fprintf(ofp,"  time (s)              T(t) (K)              P(t) (Pa)           Kinetic En. (n.u.)     Potential En. (n.u.) Total En. (n.u.)\n");
   printf("  PERCENTAGE OF CALCULATION COMPLETE:\n  [");
   for (i=0; i<NumTime+1; i++) {
+
+    // Print number of particles to the trajectory file
+    fprintf(tfp,"%i\n",N);
+    fprintf(tfp,"%s atoms\n",atype);
 
     //  This just prints updates on progress of the calculation for the users convenience
     if (i==tenp) printf(" 10 |");
@@ -544,7 +545,7 @@ double VelocityVerlet(double dt, int iter, FILE *fp) {
     }
     //printf("  %i  %6.4e   %6.4e   %6.4e\n",i,r[i][0],r[i][1],r[i][2]);
   }
-  //  Update accellerations from updated positions
+  //  Update accelerations from updated positions
   computeAccelerations();
   //  Update velocity with updated acceleration
   for (i=0; i<N; i++) {
